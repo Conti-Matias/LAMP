@@ -71,5 +71,34 @@ CREATE TABLE IF NOT EXISTS genere_videocassetta(
     FOREIGN KEY (id_videocassetta) REFERENCES videocassetta(id)
 );
 
+INSERT INTO videocassetta(id,titolo,data_pubblicazione,prezzo,durata)    
+VALUES (1,'Il Pianista','2021-01-01',9.99,120);
+
+
+INSERT INTO cliente(codice_fiscale,titolo,data_pubblicazione,direttore,genere)
+VALUES (1,'La dolce vita','2021-01-01','Giuseppe Verdi','Commedia');
+
+INSERT INTO noleggio(id,id_cliente,id_videocassetta)
+VALUES (1,1,1);
+
+INSERT INTO attori(id,nome,ruolo)
+VALUES (1,'Giuseppe Verdi','Direttore');
+
+INSERT INTO attori_videocassetta(id,id_attore,id_videocassetta)
+VALUES (1,1,1);
+
+INSERT INTO regista(codice_fiscale,nome,cognome,data_nascita)
+VALUES (1,'Giuseppe','Verdi','1970-01-01');
+
+INSERT INTO regista_videocassetta(id,id_regista,id_videocassetta)
+VALUES (1,1,1);
+
+INSERT INTO genere(id,nome)
+VALUES (1,'Commedia');
+
+INSERT INTO genere_videocassetta(id,id_genere,id_videocassetta)
+VALUES (1,1,1);
+
+
 
 
