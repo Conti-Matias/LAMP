@@ -7,7 +7,7 @@ CREATE TABLE Clienti (
     cognome VARCHAR(50) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     telefono VARCHAR(15),
-    data_registrazione DATE DEFAULT CURRENT_DATE
+    data_registrazione TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE Veicoli (
