@@ -4,31 +4,49 @@ CREATE DATABASE IF NOT EXISTS scuola;
 USE scuola;
 
 
+CREATE TABLE IF NOT EXISTS corsi_studi(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL
+);
+    
+CREATE TABLE IF NOT EXISTS disciplina(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS studente(
     matricola INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL,
     cognome VARCHAR(50) NOT NULL,
     DataNascita DATE NOT NULL,
-    LuogoNascita VARCHAR(100) NOT NULL
+    CorsiStudi INT NOT NULL,
+    FOREIGN KEY (CorsiStudi) REFERENCES corsi_studi(id)
+    
 );
 
 CREATE TABLE IF NOT EXISTS valutazioni(
     id INT AUTO_INCREMENT PRIMARY KEY,
     matricola INT NOT NULL,
-    AnnoCorso INT NOT NULL,
-    materia INT NOT NULL,
+    DataSvolgimento DATE NOT NULL,
+    disciplina INT NOT NULL,
     voto INT NOT NULL,
     FOREIGN KEY (matricola) REFERENCES studente(matricola),
-    FOREIGN KEY (materia) REFERENCES materia(id)
-);
-
-CREATE TABLE IF NOT EXISTS materia(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(50) NOT NULL
+    FOREIGN KEY (disciplina) REFERENCES disciplina(id)
 );
 
 
-INSERT INTO materia (nome)
+
+
+
+INSERT INTO corsi_studi (nome)
+VALUES
+    ('Informatica'),
+    ('Letteratura'),
+    ('Economia'),
+    ('Scienze'),
+    ('Arte');
+
+
+INSERT INTO disciplina (nome)
 VALUES
     ('Matematica'),
     ('Italiano'),
@@ -37,27 +55,24 @@ VALUES
     ('Storia');
      
 
-     
-INSERT INTO studente (nome, cognome, DataNascita, LuogoNascita)
+INSERT INTO studente (cognome, DataNascita, CorsiStudi)
 VALUES
-    ('Giuseppe', 'Rossi', '1990-05-15', 'Roma'),
-    ('Maria', 'Bianchi', '1985-08-10', 'Firenze'),
-    ('Paolo', 'Verdi', '1995-12-07', 'Venezia'),
-    ('Luca', 'Gialli', '1992-03-25', 'Napoli'),
-    ('Giorgio', 'Neri', '1997-04-12', 'Torino');
+    ('Rossi', '1995-05-10', 1),  
+    ('Bianchi', '1997-08-15', 2),  
+    ('Verdi', '1996-12-20', 3),  
+    ('Gialli', '1998-06-05', 4), 
+    ('Neri', '1999-01-15', 5), 
+    ('Rossi', '1995-05-10', 1);
 
-INSERT INTO valutazioni (matricola, AnnoCorso, materia, voto)
+
+INSERT INTO valutazioni (matricola, DataSvolgimento, disciplina, voto)
 VALUES
-    (1, 2018, 1, 85),   -- Giuseppe Rossi, Matematica, Voto: 85
-    (1, 2018, 2, 92),   -- Giuseppe Rossi, Italiano, Voto: 92
-    (1, 2018, 3, 88),   -- Giuseppe Rossi, Inglese, Voto: 88
-    (2, 2019, 1, 75),   -- Maria Bianchi, Matematica, Voto: 75
-    (2, 2019, 4, 91),   -- Maria Bianchi, Francese, Voto: 91
-    (3, 2020, 2, 82),   -- Paolo Verdi, Italiano, Voto: 82
-    (3, 2020, 5, 89),   -- Paolo Verdi, Storia, Voto: 89
-    (4, 2021, 3, 79),   -- Luca Gialli, Inglese, Voto: 79
-    (4, 2021, 4, 85),   -- Luca Gialli, Francese, Voto: 85
-    (5, 2022, 1, 95);   -- Giorgio Neri, Matematica, Voto: 95
+
+    (1, '2021-01-01', 1, 85),  
+    (2, '2021-02-15', 2, 90),  
+    (3, '2021-03-31', 3, 78),  
+    (4, '2021-04-10', 4, 82),  
+    (5, '2021-05-25', 5, 95);
 
 
 
@@ -68,5 +83,5 @@ from studente s join valutazioni v
 on s.matricola = v.matricola;
 
 select s.cognome, v.voto, m.nome
-from studente s,valutazioni v,materia m
-where s.matricola = v.matricola and v.materia = m.id
+from studente s,valutazioni v,disciplina m
+where s.matricola = v.matricola and v.disciplina = m.id
