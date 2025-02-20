@@ -1,4 +1,6 @@
 
+<?php
+
 function login($email, $password) {
   
   if(! isset($email, $password)) 
@@ -48,4 +50,4 @@ function login($email, $password) {
   }
 }
 
-
+?>
