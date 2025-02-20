@@ -9,7 +9,7 @@ include 'functions.php';
 // Recupero eventuali dati inviati tramite query string
 
 // Controllo se l'utente è registrato e se la password è corretta
-[$retval, $errmsg] = login($utente, $passw);
+[$retval, $errmsg] = login($email, $passw);
 
 // Creo il codice html da visualizzare a seconda dei valori di $from e $retval
 //if ...
@@ -23,7 +23,7 @@ include 'functions.php';
 //Form di login
 $html_form = <<<FORM
 <form action="$_SERVER[PHP_SELF]" method="post">
-  <label for="utente"> </label><input type="text" name="utente" placeholder="utente" required/><br />
+  <label for="email"> </label><input type="text" name="email" placeholder="Email" required/><br />
   <label for="password"> </label><input type="password" name="password" placeholder="Password" required/><br />
   <input type="submit" value="Login" /><input type="reset" value="Cancel" />
 </form>
