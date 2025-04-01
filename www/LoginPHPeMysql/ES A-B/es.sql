@@ -1,17 +1,15 @@
-mysql -u root
-
-DROP DATABASE IF EXISTS ES05;
+-- DROP DATABASE IF EXISTS ES05;
 CREATE DATABASE IF NOT EXISTS ES05;
 USE ES05; SHOW DATABASES;
 
 
 -- DROP USER IF EXISTS ES05_user@localhost;
-CREATE USER IF NOT EXISTS ES05_user@localhost IDENTIFIED BY 'mia_password';
+CREATE USER IF NOT EXISTS ES05_user IDENTIFIED BY 'mia_password';
 -- ALTER USER ES05_user@localhost IDENTIFIED BY 'nuova_password';
 SELECT user, host FROM mysql.user;
-GRANT SELECT, INSERT, UPDATE, DELETE ON ES05.* TO ES05_user@localhost;
+GRANT SELECT, INSERT, UPDATE, DELETE ON ES05.* TO ES05_user;
 -- GRANT ALL ON ES05.* TO ES05_user@localhost;
-SHOW GRANTS FOR ES05_user@localhost;
+SHOW GRANTS FOR ES05_user;
 
 -- DROP TABLE IF EXISTS utente;
 CREATE TABLE IF NOT EXISTS utente (
@@ -19,14 +17,14 @@ CREATE TABLE IF NOT EXISTS utente (
   Username VARCHAR(64) NOT NULL UNIQUE,
   Password VARCHAR(64) NOT NULL ,
   PRIMARY KEY (UserID)
-) ENGINE=InnoDB AUTO_INCREMENT=1000;
-SHOW TABLES; 
-SHOW CREATE TABLE utente;
+)AUTO_INCREMENT=1000;
+
 INSERT INTO utente (UserID, Username, Password 
 ) VALUES (NULL, 'utente', 'prova');
 
 INSERT INTO utente VALUES 
 (NULL, 'mrossi', '123'),
-(NULL, 'admin', 'admin');
+(NULL, 'admin', 'admin'),
+(NULL, 'ES05_user', 'pass');
 
 SELECT * FROM utente;
