@@ -1,30 +1,21 @@
-<?php 
-    require 'funzioni.php';
-
-    session_start();
-
-    [$sessionRetval, $sessionerrmsg] = controlloSessione();
-
-    if (!$sessionRetval) {
-        $url = 'Location: login.php?from=' . basename($_SERVER['PHP_SELF']) . '&error=' . $sessionerrmsg;
-        header($url);
-        die();
-    }
-?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <title>Pagina Riservata</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hide</title>
 </head>
 <body>
-    <?="<h3>Benvenuto " . $_SESSION['username'] . "</h3>"?>
+    <style> a{border: solid black 1px; background-color:#e6e6e6; border-radius:5px;}</style>
+    <h1>Verifica dati inseriti</h1>
 
-    <a href="index.php">Home page</a>
-    <br>
-    <a href="logout.php">Logout</a>
+    <?php
+    include 'sessione.php';
+    riservata();
+    ?>
+    <p><a href="index.php">Home</a></p><br/>
+    <p><a href="Logout.php">Log Out</a></p>
+ 
 </body>
 </html>
-
-    
-        

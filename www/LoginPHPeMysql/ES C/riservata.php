@@ -1,30 +1,47 @@
-<?php 
-    require 'funzioni.php';
+<?php
 
-    session_start();
+require 'functions.php';
 
-    [$sessionRetval, $sessionerrmsg] = controlloSessione();
+session_start();
 
-    if (!$sessionRetval) {
-        $url = 'Location: login.php?from=' . basename($_SERVER['PHP_SELF']) . '&error=' . $sessionerrmsg;
-        header($url);
-        die();
-    }
+if(!checkSession()[0]) {
+    header('Location: login.php?from=' . $_SERVER['PHP_SELF']);
+    exit;
+}
+
+$user = $_SESSION['username'];
+
+
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Pagina Riservata</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Area Riservata</title>
 </head>
 <body>
-    <?="<h3>Benvenuto " . $_SESSION['username'] . "</h3>"?>
+    <div id="container">
 
-    <a href="index.php">Home page</a>
-    <br>
-    <a href="logout.php">Logout</a>
+        <h2>Benvenuto <?=$user?> nell'area riservata del sito</h2>
+
+        <div class="clickable-div" onclick="location.href='index.php'" >
+        <h2>Homepage</h2>
+        </div>
+
+        <div class="clickable-div" onclick="location.href='profile.php'" >
+        <h2>Area Profilo</h2>
+        </div>
+
+        <div class="clickable-div" onclick="location.href='logout.php'" >
+        <h2>Logout</h2>
+        </div>
+
+    </div>
 </body>
 </html>
-
-    
-        

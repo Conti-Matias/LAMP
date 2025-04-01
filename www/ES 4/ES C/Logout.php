@@ -1,4 +1,5 @@
-<?php 
-    require 'funzioni.php';
-    uscita();
+
+<?php
+include 'sessione.php';
+logout();
 ?>
