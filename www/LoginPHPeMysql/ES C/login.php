@@ -1,69 +1,57 @@
-<?php
+<?php 
 
-require 'functions.php';
+require 'funzioni.php';
 
 session_start();
 
-$msg = $_GET['error'] ?? '';
-
-if(isset($_SESSION['username'])) {
-    $msg = 'Login già effettuato';
+if (isset($_SESSION['username'])) {
+    $mess = 'Accesso gia effettuato';
 }
-else if($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'] ?? '';
-    $password = $_POST['password'] ?? '';
-    
-    [$loginRetval, $loginRetmsg] = login_check($username, $password);
-    
-    $msg = $loginRetmsg;
-    
-    if($loginRetval) {
-        $_SESSION['username'] = $username; 
+else if ($_SESSION['REQUEST_METHOD'] == 'POST') {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
 
-        $link = 'Location: ';
-        $link .= $_POST['from'] != null ? $_POST['from'] : 'index.php';
+    [$Accessoretval, $Accessomsg] = controllo_login($username, $password);
 
-        header($link);
-        die();
+    $mess = $Accessomsg;
+
+    if ($loginRetval) {
+        $_SESSION['username'] = $username;
+        
+        $redirectPage = $_POST['from'] ?? 'index.php';
+        header("Location: $redirectPage");
+        exit;
     }
+
+    $collegamento= impostaCollegamento();
 }
-
-$links = setLinks();
-
 ?>
 
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
     <title>Login</title>
 </head>
 <body>
-    <div id="login-container">
-
         <h2>Login</h2>
 
-        <div id="error-container"><?=$msg?></div>
+        <?= $msg ?>
 
-        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <form action="<?= $_SERVER['PHP_SELF']; ?>" method="POST">
             
-        <input type="text" name="username" id="username" placeholder="Username" pattern=".{3,}" required title="Minimo 3 lettere">
+            <input type="text" name="username" id="username" placeholder="Username" pattern=".{3,}" required title="Minimo 3 lettere">
             <br>
             
             <input type="password" name="password" id="password" placeholder="Password" pattern=".{3,}" required title="Minimo 3 lettere">
             <br>
             <input type="submit" value="Login" id="login-button">
 
-            <input type="hidden" name="from" value="<?=$_GET['from'] ?? null?>" > 
+            <input type="hidden" name="from" value="<?= $_GET['from'] ?? '' ?>"> 
         </form>
-        <div id="links">
-            <?=$links?>
-        </div>
-
-    </div>
-
-
+            <?= $links ?>
 </body>
 </html>
+
+
+    

@@ -1,15 +1,15 @@
 CREATE DATABASE IF NOT EXISTS ES05;
 USE ES05;
 
-DROP USER IF EXISTS 'ES05_user'@'localhost';
-CREATE USER 'ES05_user'@'localhost' IDENTIFIED BY 'password';
-GRANT SELECT, INSERT, UPDATE, DELETE ON ES05.* TO 'ES05_user'@'localhost';
+DROP USER IF EXISTS ES05_user;
+CREATE USER IF NOT EXISTS ES05_user IDENTIFIED BY 'mia_password';
+GRANT SELECT, INSERT, UPDATE, DELETE ON ES05.* TO ES05_user;
 
-CREATE TABLE IF NOT EXISTS Utenti (
-    UserID INT AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(50) NOT NULL UNIQUE,
-    Password VARCHAR(255) NOT NULL
+CREATE TABLE IF NOT EXISTS account(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
 );
 
-INSERT INTO Utenti (UserID, Username, Password )
-VALUES (NULL, 'utente', 'prova');
+insert into account (id,username, password)
+VALUES (NULL, 'admin', 'prova');
