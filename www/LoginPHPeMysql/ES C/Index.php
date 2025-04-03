@@ -1,56 +1,29 @@
 <?php
-require 'functions.php';
+session_start(); // Avvio la sessione PHP
 
-session_start();
+// Verifica se l'utente è autenticato
+$utente = $_SESSION['username'] ?? 'Ospite';
 
-$user = $_SESSION['username'] ?? '';
-
-// Check if user is already logged in
-if(!checkSession()[0]) {
-    
-    $htmlLinks = <<<HTML
-    <div class="clickable-div" onclick="location.href='login.php'" >
-        <h2>Pagina di Login</h2>
-    </div>
-    <div class="clickable-div" onclick="location.href='register.php'" >
-        <h2>Pagina di Registrazione</h2>
-    </div>
-    HTML;
+// Creazione dei link in funzione dell'utente Ospite o Autenticato
+if ($utente === 'Ospite') {
+    $html_link = '<a href="login.php"><h2>Accedi</h2></a>';
 } else {
-    $htmlLinks = <<<HTML
-    <div class="clickable-div" onclick="location.href='riservata.php'" >
-        <h2>Area Riservata</h2>
-    </div>
-    <div class="clickable-div" onclick="location.href='profile.php'" >
-        <h2>Area Profilo</h2>
-    </div>
-    <div class="clickable-div" onclick="location.href='logout.php'" >
-        <h2>Logout</h2>
-    </div>
-    HTML;
+    $html_link = '<a href="protected_page.php"><h2>riservata</h2></a> <a href="logout.php"><h2>Esci</h2></a>';
 }
-
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Homepage</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
 </head>
 <body>
+  <h2>ES05 - Login con PHP e MySQL</h2>
+  <p>Benvenuto <?= $utente ?>. Questa è la home page del sito.<br />
 
-
-
-<div id="container">
-    <h1>Homepage</h1>
-    <h2>Benvenuto <?=$user?></h2>
-
-    <?=$htmlLinks?>
-
-</div>
+  <!-- Link -->
+  <p><?= $html_link ?></p>
 </body>
 </html>
