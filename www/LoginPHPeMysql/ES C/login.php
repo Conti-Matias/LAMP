@@ -49,8 +49,6 @@ FORM;
 // Creo il codice html da visualizzare a seconda dei valori di $from e $retval
   $html_out = "<p class='error'>$errmsg</p>";
   $html_out .= $html_form;
-  $html_out .= "Non hai un account? <a href='register.php'>Registrati adesso</a>.<br />";
-  $html_out .= "Hai dimenticato la password? <a href='pwd_reset.php'>Resetta la password</a>.<br />";
   $html_out .= "<a href='index.php'>Torna alla Home Page</a>.<br />";
 ?>
 <!DOCTYPE html>
